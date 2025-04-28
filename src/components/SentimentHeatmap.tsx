@@ -1,6 +1,5 @@
 
 import { SubredditSentiment } from "@/utils/mockData";
-import { scaleLinear } from "recharts";
 import MetricCard from "./MetricCard";
 
 interface SentimentHeatmapProps {
@@ -14,18 +13,11 @@ const SentimentHeatmap = ({ data }: SentimentHeatmapProps) => {
   const maxNeutral = Math.max(...data.map(d => d.neutral));
   const maxValue = Math.max(maxPositive, maxNegative, maxNeutral);
   
-  // Create color scales
-  const positiveColorScale = scaleLinear()
-    .domain([0, maxValue])
-    .range(['#E3F2FD', '#1EAEDB'] as any);
-    
-  const negativeColorScale = scaleLinear()
-    .domain([0, maxValue])
-    .range(['#FFF3E0', '#F97316'] as any);
-    
-  const neutralColorScale = scaleLinear()
-    .domain([0, maxValue])
-    .range(['#F5F5F5', '#8E9196'] as any);
+  // Create a simple function to calculate color intensity
+  const getColorIntensity = (value: number, maxValue: number): string => {
+    const percentage = value / maxValue;
+    return `rgba(${percentage * 255}, ${percentage * 255}, ${percentage * 255}, 1)`;
+  };
     
   const getIntensityClass = (value: number) => {
     const percentage = value / maxValue;
