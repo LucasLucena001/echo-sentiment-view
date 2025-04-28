@@ -1,17 +1,20 @@
 
-import { Calendar, Filter } from "lucide-react";
+import { Calendar, Filter, Search } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 interface FilterBarProps {
   onTimeRangeChange: (range: string) => void;
   onTopicChange: (topic: string) => void;
+  onKeywordSearch: (keyword: string) => void;
 }
 
-const FilterBar = ({ onTimeRangeChange, onTopicChange }: FilterBarProps) => {
+const FilterBar = ({ onTimeRangeChange, onTopicChange, onKeywordSearch }: FilterBarProps) => {
   const [timeRange, setTimeRange] = useState("30d");
   const [topic, setTopic] = useState("all");
+  const [keyword, setKeyword] = useState("");
 
   const handleTimeRangeChange = (value: string) => {
     setTimeRange(value);
@@ -23,6 +26,10 @@ const FilterBar = ({ onTimeRangeChange, onTopicChange }: FilterBarProps) => {
     onTopicChange(value);
   };
 
+  const handleKeywordSearch = () => {
+    onKeywordSearch(keyword);
+  };
+
   return (
     <div className="flex flex-col sm:flex-row gap-4 mb-6 bg-white p-4 rounded-lg shadow-sm animate-fade-in">
       <div className="flex items-center">
@@ -30,7 +37,7 @@ const FilterBar = ({ onTimeRangeChange, onTopicChange }: FilterBarProps) => {
         <span className="text-sm font-medium">Filtros:</span>
       </div>
       
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 flex-grow">
         <div className="flex items-center">
           <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
           <Select value={timeRange} onValueChange={handleTimeRangeChange}>
@@ -60,6 +67,27 @@ const FilterBar = ({ onTimeRangeChange, onTopicChange }: FilterBarProps) => {
               <SelectItem value="science">Ciência</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+        
+        <div className="flex flex-grow items-center gap-2">
+          <Search className="h-4 w-4 text-muted-foreground" />
+          <div className="relative w-full">
+            <Input
+              type="text"
+              placeholder="Palavras-chave para análise"
+              className="w-full"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleKeywordSearch();
+                }
+              }}
+            />
+          </div>
+          <Button size="sm" onClick={handleKeywordSearch}>
+            Buscar
+          </Button>
         </div>
       </div>
       
