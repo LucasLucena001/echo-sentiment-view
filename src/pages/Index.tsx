@@ -5,7 +5,6 @@ import FilterBar from "@/components/FilterBar";
 import SentimentOverTime from "@/components/SentimentOverTime";
 import SentimentDistribution from "@/components/SentimentDistribution";
 import TopWords from "@/components/TopWords";
-import SentimentHeatmap from "@/components/SentimentHeatmap";
 import { mockData } from "@/utils/mockData";
 import { toast } from "sonner";
 
@@ -88,28 +87,27 @@ const Index = () => {
           </div>
         ) : (
           <>
+            {keyword ? (
+              <div className="mb-6 p-4 bg-white rounded-lg shadow-sm">
+                <h2 className="text-xl font-semibold mb-2">Análise para: "{keyword}"</h2>
+                <p className="text-muted-foreground">Resultados da análise de sentimentos para a palavra-chave especificada.</p>
+              </div>
+            ) : null}
+            
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
               <SentimentOverTime data={data.timeSeriesData} />
               <SentimentDistribution data={data.sentimentDistribution} />
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="mb-6">
               <TopWords data={data.topWords} />
-              <SentimentHeatmap data={data.subredditSentiments} />
             </div>
           </>
         )}
         
-        {keyword && !isLoading && (
-          <div className="my-4 p-4 bg-white rounded-lg shadow-sm">
-            <h3 className="text-lg font-medium mb-2">Resultados da busca</h3>
-            <p>Palavra-chave atual: <span className="font-semibold">{keyword}</span></p>
-          </div>
-        )}
-        
         <footer className="mt-12 pt-6 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>Fonte de dados: Reddit API (dados simulados para demonstração)</p>
+            <p>Fonte de dados: API de análise de sentimentos (dados simulados para demonstração)</p>
             <p>Atualizado em: {new Date().toLocaleDateString()}</p>
           </div>
         </footer>

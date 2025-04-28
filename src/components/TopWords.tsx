@@ -25,8 +25,8 @@ const TopWords = ({ data }: TopWordsProps) => {
   };
 
   return (
-    <MetricCard title="Top 10 Palavras por Sentimento">
-      <div className="w-full h-[400px] p-4">
+    <MetricCard title="Palavras Relacionadas por Sentimento">
+      <div className="w-full h-[500px] p-4"> {/* Increased height for better visibility */}
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             layout="vertical"
@@ -55,6 +55,22 @@ const TopWords = ({ data }: TopWordsProps) => {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+      </div>
+      <div className="px-4 pb-4">
+        <div className="flex justify-center gap-6">
+          <div className="flex items-center">
+            <div className="w-3 h-3 mr-2 rounded-full bg-[#1EAEDB]"></div>
+            <span>Positivo</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-3 h-3 mr-2 rounded-full bg-[#F97316]"></div>
+            <span>Negativo</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-3 h-3 mr-2 rounded-full bg-[#8E9196]"></div>
+            <span>Neutro</span>
+          </div>
+        </div>
       </div>
     </MetricCard>
   );
