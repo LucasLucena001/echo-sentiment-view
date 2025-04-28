@@ -1,6 +1,6 @@
 
 import { WordFrequency } from "@/utils/mockData";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import MetricCard from "./MetricCard";
 
 interface TopWordsProps {
