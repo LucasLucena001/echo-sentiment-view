@@ -1,6 +1,6 @@
 
 import { SubredditSentiment } from "@/utils/mockData";
-import { scaleLinear } from "recharts/lib/util/scaleUtil";
+import { scaleLinear } from "recharts";
 import MetricCard from "./MetricCard";
 
 interface SentimentHeatmapProps {
